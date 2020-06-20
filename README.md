@@ -57,6 +57,36 @@ Restart nginx
 sudo systemctl restart nginx
 ```
 
+## How to autostart
+
+Install pm2
+
+```sh
+sudo npm install -g pm2
+```
+
+Start server
+
+```sh
+pm2 start server.js
+```
+
+Get startup command
+
+```sh
+pm2 startup systemd
+```
+
+Copy and paste the output of the last command
+```sh
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u pi --hp /home/pi
+```
+
+Save current pm2 state (running server.js)
+```sh
+pm2 save
+```
+
 ## How to Update Front-End (React) Code
 
 Navigate to the 'front' folder
