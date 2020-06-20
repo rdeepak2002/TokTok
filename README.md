@@ -8,6 +8,12 @@ Navigate to the 'back' folder
 cd back
 ```
 
+Install node modules
+
+```sh
+npm install
+```
+
 Run the server
 
 ```sh
@@ -20,6 +26,12 @@ Navigate to the 'front' folder
 
 ```sh
 cd front
+```
+
+Install node modules
+
+```sh
+npm install
 ```
 
 Build the React project for production
