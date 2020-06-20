@@ -1,0 +1,24 @@
+{
+  "name": "toktok",
+  "version": "1.0.0",
+  "description": "TokTok server",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdeepak2002/TokTok.git"
+  },
+  "author": "Deepak Ramalingam",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/rdeepak2002/TokTok/issues"
+  },
+  "homepage": "https://github.com/rdeepak2002/TokTok#readme"
+}
