@@ -1,13 +1,28 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
-export default function HomePage() {
-  return (
-    <div className="container">
-      <h1>Home Page</h1>
-      <p>
-        <Link to="/login">sign out</Link>
-      </p>
-    </div>
-  )
+class HomePage extends React.Component {
+  state = {
+    redirect: false
+  }
+
+  render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to='/'/>
+    }
+    else {
+      return (
+        <div className="container">
+          <h1>Home Page</h1>
+          <p>
+            <Link to="/">sign out</Link>
+          </p>
+        </div>
+      )
+    }
+  }
 }
+
+export default HomePage

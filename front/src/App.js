@@ -1,19 +1,19 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { Redirect } from 'react-router'
 
-import LaunchPage from './pages/LaunchPage'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 
 class App extends React.Component {
   componentDidMount() {
-    document.title = 'TokTok';
+    document.title = 'TokTok'
   }
+
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={LaunchPage} />
-        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/" component={LoginPage} />
         <Route path="/home" component={HomePage} />
       </Switch>
     )
