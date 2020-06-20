@@ -8,6 +8,22 @@ Navigate to the 'back' folder
 cd back
 ```
 
+Create credentials file
+
+```sh
+nano key.json
+```
+
+Add the following
+
+```sh
+{
+  "username" : "<mongodb username>",
+  "password" : "<mongodb password>",
+  "cluster" : "<mongodb cluster>"
+}
+```
+
 Install node modules
 
 ```sh

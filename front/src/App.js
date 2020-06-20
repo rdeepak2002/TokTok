@@ -5,14 +5,19 @@ import LaunchPage from './pages/LaunchPage'
 import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 
-function App() {
-  return (
-    <Switch>
-      <Route exact path="/" component={LaunchPage} />
-      <Route exact path="/login" component={LoginPage} />
-      <Route path="/home" component={HomePage} />
-    </Switch>
-  )
+class App extends React.Component {
+  componentDidMount() {
+    document.title = 'TokTok';
+  }
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={LaunchPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route path="/home" component={HomePage} />
+      </Switch>
+    )
+  }
 }
 
 export default App
