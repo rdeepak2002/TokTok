@@ -20,7 +20,7 @@ Run the server
 node server.js
 ```
 
-## How to Add NGINX Reverse Proxy
+## How to Add Nginx Reverse Proxy
 Edit the default config file
 
 ```sh
@@ -57,7 +57,7 @@ Restart nginx
 sudo systemctl restart nginx
 ```
 
-## How to autostart
+## How to Autostart
 
 Install pm2
 
