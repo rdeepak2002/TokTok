@@ -14,7 +14,7 @@ Create credentials file
 nano key.json
 ```
 
-Add the following
+Add the following mongodb credentials
 
 ```sh
 {
