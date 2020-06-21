@@ -52,7 +52,6 @@ form > input {
 }
 
 .centerColumnItems {
-  text-align: center;
   align-items: center;
 }
 
@@ -63,11 +62,13 @@ form > input {
 .logoTitle {
   color: white;
   font-size: 8rem;
+  text-align: center;
 }
 
 .logoSubtitle {
   color: white;
   font-size: 2rem;
+  text-align: center;
 }
 
 .logoImage {
@@ -94,6 +95,15 @@ form > input {
   margin: 20px;
   font-size: 2rem;
   font-style: bold;
+}
+
+.bottomBorder {
+  padding-bottom: 10px;
+  border-bottom: 5px solid red;
+}
+
+.noBottomBorder {
+  padding-bottom: 10px;
 }
 
 .clickable:hover {

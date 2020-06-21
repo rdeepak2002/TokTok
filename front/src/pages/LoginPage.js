@@ -36,11 +36,11 @@ class LoginPage extends React.Component {
     else {
       const Navbar = () => (
         <div className='navbar'>
-          <div onClick={this.showLoginPage} className='navbar-item clickable' style={{color: this.state.loginBtnColor}}>
+          <div onClick={this.showLoginPage} className={`navbar-item clickable ${showLoginPage ? "bottomBorder" : "noBottomBorder"}`} style={{color: this.state.loginBtnColor}}>
             Login
           </div>
 
-          <div onClick={this.showSignUpPage} className='navbar-item clickable' style={{color: this.state.signUpBtnColor}}>
+          <div onClick={this.showSignUpPage} className={`navbar-item clickable  ${showLoginPage ? "noBottomBorder" : "bottomBorder"}`} style={{color: this.state.signUpBtnColor}}>
             Sign Up
           </div>
         </div>
