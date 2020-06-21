@@ -10,6 +10,8 @@ const PORT = 5000
 dao.listDatabases()
 
 app.use(express.static(path.join(__dirname, '../front/build')))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.post('/signupRequest', async (req, res) => {
   const email = req.body.email
