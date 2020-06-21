@@ -3,20 +3,20 @@ import { Link, Redirect } from 'react-router-dom'
 import '../styles/LoginPage.css'
 import logoWhiteRed from '../images/logos/logoWhiteRed.png'
 
-class LoginPage extends React.Component {
+class SignUpPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       redirect: false,
       email: '',
       password: '',
+      confirmPassword: ''
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this)
-    this.handlePasswordChange = this.handlePasswordChange.bind(this)
   }
 
-  handleLogin = (event) => {
+  handleSignUp = (event) => {
     event.preventDefault()
     alert(this.state.email)
   }
@@ -31,6 +31,17 @@ class LoginPage extends React.Component {
     this.setState({password: event.target.value})
   }
 
+  handleConfirmPasswordChange = (event) => {
+    console.log(event.target.value)
+    this.setState({confirmPassword: event.target.value})
+  }
+
+
+  showLoginPage = () => {
+    alert('redirect to login')
+    return <Redirect to='/'/>
+  }
+
   render() {
     const { redirect } = this.state
 
@@ -40,13 +51,14 @@ class LoginPage extends React.Component {
     else {
       const Navbar = () => (
         <div className='navbar'>
-          <div className='navbar-item clickable bottomBorder'>
-            Login
-          </div>
 
-          <Link to="/signup" className='navbar-item clickable noBottomBorder' style={{ textDecoration: 'none' }} >
-            Sign Up
+          <Link to="/" className='navbar-item clickable noBottomBorder' style={{ textDecoration: 'none' }} >
+            Login
           </Link>
+
+          <div className='navbar-item clickable bottomBorder'>
+            Sign Up
+          </div>
         </div>
       )
 
@@ -60,12 +72,13 @@ class LoginPage extends React.Component {
           <div className='halfColumn'>
             <div className='loginFormContainer'>
               <Navbar/>
-              <form onSubmit={this.handleLogin} className='form'>
+              <form onSubmit={this.handleSignUp} className="form">
                 <input className='emailInput' type='email' placeholder='Email' onChange={this.handleEmailChange}></input>
                 <input className='passwordInput' type='password' placeholder='Password' onChange={this.handlePasswordChange}></input>
-                <input className='loginBtn clickable' type='submit' value='SIGN IN'></input>
+                <input className='passwordInput' type='password' placeholder='Confirm password' onChange={this.handleConfirmPasswordChange}></input>
+                <input className='loginBtn clickable' type='submit' value='SIGN UP'></input>
               </form>
-              <div>New to TokTok? <Link to="/signup" className='clickable hyperlink' style={{ textDecoration: 'none' }} >Sign Up Here</Link></div>
+              <div>Already have an account? <Link to="/" className='clickable hyperlink' style={{ textDecoration: 'none' }} >Login Here</Link></div>
             </div>
           </div>
 
@@ -76,4 +89,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage
+export default SignUpPage

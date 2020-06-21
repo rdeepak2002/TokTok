@@ -4,6 +4,7 @@ import { Redirect } from 'react-router'
 
 import NotFoundPage from './pages/NotFoundPage'
 import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
 import HomePage from './pages/HomePage'
 
 class App extends React.Component {
@@ -15,6 +16,7 @@ class App extends React.Component {
     return (
       <Switch>
         <Route exact path="/" component={LoginPage} />
+        <Route exact path="/signup" component={SignUpPage} />
         <Route path="/home" component={HomePage} />
         <Route path="*" component={NotFoundPage} />
       </Switch>

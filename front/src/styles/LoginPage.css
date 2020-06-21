@@ -100,10 +100,12 @@ form > input {
 .bottomBorder {
   padding-bottom: 10px;
   border-bottom: 5px solid red;
+  color: black;
 }
 
 .noBottomBorder {
   padding-bottom: 10px;
+  color: grey;
 }
 
 .clickable:hover {
@@ -119,4 +121,8 @@ form > input {
   margin-left: 6rem;
   margin-right: 6rem;
   margin-top: 2rem;
+}
+
+.noUnderline {
+  textDecoration: 'none';
 }
