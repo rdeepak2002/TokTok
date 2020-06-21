@@ -22,12 +22,10 @@ class LoginPage extends React.Component {
   }
 
   handleEmailChange = (event) => {
-    console.log(event.target.value)
     this.setState({email: event.target.value})
   }
 
   handlePasswordChange = (event) => {
-    console.log(event.target.value)
     this.setState({password: event.target.value})
   }
 

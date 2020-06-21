@@ -18,24 +18,49 @@ class SignUpPage extends React.Component {
 
   handleSignUp = (event) => {
     event.preventDefault()
-    alert(this.state.email)
+
+    if(this.state.password == this.state.confirmPassword) {
+      let data = {}
+
+      data.email = this.state.email.toLowerCase().trim()
+      data.password = this.state.password
+
+      let xmlhttp = new XMLHttpRequest()
+      let theUrl = '/signupRequest'
+
+      xmlhttp.open('POST', theUrl)
+      xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+      xmlhttp.send(JSON.stringify(data))
+
+      xmlhttp.onload  = function (e) {
+        if (xmlhttp.readyState === 4) {
+          if (xmlhttp.status === 200) {
+            let obj = JSON.parse(xmlhttp.responseText)
+            alert(obj.message)
+          } else {
+            console.error(xmlhttp.statusText)
+            console.log(2)
+            alert('Error contacting server.')
+          }
+        }
+      }
+    }
+    else {
+      alert('draw red text saying that the cpass and pass do not match')
+    }
   }
 
   handleEmailChange = (event) => {
-    console.log(event.target.value)
     this.setState({email: event.target.value})
   }
 
   handlePasswordChange = (event) => {
-    console.log(event.target.value)
     this.setState({password: event.target.value})
   }
 
   handleConfirmPasswordChange = (event) => {
-    console.log(event.target.value)
     this.setState({confirmPassword: event.target.value})
   }
-
 
   showLoginPage = () => {
     alert('redirect to login')
