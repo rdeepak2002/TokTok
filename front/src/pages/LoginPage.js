@@ -43,7 +43,7 @@ class LoginPage extends React.Component {
             { showLoginPage ? <LoginForm /> : <SignUpForm /> }
           </div>
 
-          <img className='logoImage' src={logoWhiteRed}></img>
+          <img className='logoImage' src={logoWhiteRed} alt='logo'></img>
         </div>
       )
     }
