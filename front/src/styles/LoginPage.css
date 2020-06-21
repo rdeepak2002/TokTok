@@ -1,0 +1,43 @@
+.flexContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  background-color: white;
+}
+
+.halfColumn {
+  flex: 1 1 50%;
+  white-space: nowrap;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 0px 60px 60px 0px;
+  align-items: center;
+}
+
+.lightGreen {
+  background: #fc4747;
+}
+
+.logoTitle {
+  color: white;
+  font-size: 8rem;
+}
+
+.logoSubtitle {
+  color: white;
+  font-size: 2rem;
+}
+
+.logoImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130px;
+  height: 130px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 100%;
+  margin-top: -75px;
+  margin-left: -75px;
+}
