@@ -11,7 +11,7 @@ dao.listDatabases()
 
 app.use(express.static(path.join(__dirname, '../front/build')))
 
-app.post('/signup', async (req, res) => {
+app.post('/signupRequest', async (req, res) => {
   const email = req.body.email
   const password = req.body.password
 
@@ -25,7 +25,7 @@ app.post('/signup', async (req, res) => {
   }
   catch (error) {
     console.error(error)
-    res.send({ message: error })
+    res.send({ message: error.toString() })
   }
 })
 
