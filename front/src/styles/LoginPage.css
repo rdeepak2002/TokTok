@@ -1,6 +1,44 @@
+@media screen and (max-width: 600px) {
+  .halfColumn {
+    border-radius: 0px 0px 0px 0px !important;
+  }
+
+  .logoImage {
+    visibility: hidden !important;
+  }
+}
+
+form > input {
+  display: block;
+}
+
+.loginBtn {
+  color: white;
+  font-size: 2rem;
+  background-color: #fc4747;
+  padding: 1rem;
+  border-radius: 50px;
+  border: none;
+  margin-top: 4rem;
+  width: 76%;
+}
+
+.emailInput, .passwordInput {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  border-radius: 15px;
+  padding: 1rem;
+  width: 70%;
+}
+
+.form {
+  margin-top: 30%;
+  height: 60vh;
+}
+
 .flexContainer {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   height: 100%;
   background-color: white;
 }
@@ -8,14 +46,17 @@
 .halfColumn {
   flex: 1 1 50%;
   white-space: nowrap;
-  text-align: center;
   padding: 10px;
   box-sizing: border-box;
   border-radius: 0px 60px 60px 0px;
+}
+
+.centerColumnItems {
+  text-align: center;
   align-items: center;
 }
 
-.lightGreen {
+.primaryColor {
   background: #fc4747;
 }
 
@@ -40,4 +81,32 @@
   border-radius: 100%;
   margin-top: -75px;
   margin-left: -75px;
+}
+
+.navbar {
+  width: 100%;
+}
+
+.navbar-item {
+  position: relative;
+  left: 0px;
+  display: inline;
+  margin: 20px;
+  font-size: 2rem;
+  font-style: bold;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}
+
+.hyperlink {
+  color: blue;
+  display: inline;
+}
+
+.loginFormContainer {
+  margin-left: 6rem;
+  margin-right: 6rem;
+  margin-top: 2rem;
 }
