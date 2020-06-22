@@ -22,7 +22,7 @@ class SignUpPage extends React.Component {
     if(this.state.password == this.state.confirmPassword) {
       let data = {}
 
-      data.email = this.state.email
+      data.email = this.state.email.toLowerCase().trim()
       data.password = this.state.password
 
       let xmlhttp = new XMLHttpRequest()

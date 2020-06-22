@@ -18,7 +18,30 @@ class LoginPage extends React.Component {
 
   handleLogin = (event) => {
     event.preventDefault()
-    alert(this.state.email)
+    let data = {}
+
+    data.email = this.state.email.toLowerCase().trim()
+    data.password = this.state.password
+
+    let xmlhttp = new XMLHttpRequest()
+    let theUrl = '/loginRequest'
+
+    xmlhttp.open('POST', theUrl)
+    xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+    xmlhttp.send(JSON.stringify(data))
+
+    xmlhttp.onload  = function (e) {
+      if (xmlhttp.readyState === 4) {
+        if (xmlhttp.status === 200) {
+          let obj = JSON.parse(xmlhttp.responseText)
+          alert(obj.message)
+        } else {
+          console.error(xmlhttp.statusText)
+          console.log(2)
+          alert('Error contacting server.')
+        }
+      }
+    }
   }
 
   handleEmailChange = (event) => {

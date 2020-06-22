@@ -7,6 +7,34 @@ class DAO {
     this.client = new MongoClient(this.uri, { useUnifiedTopology: true })
   }
 
+  async userExists(databaseName, collectionName, emailIn) {
+    try {
+      await this.client.connect()
+      const result = await this.client.db(databaseName).collection(collectionName).find({ email: emailIn }).toArray()
+      return (result.length > 0 ? true : false)
+    }
+    catch (e) {
+      console.error(e)
+    }
+    finally {
+      await this.client.close()
+    }
+  }
+
+  async getPasswordHash(databaseName, collectionName, emailIn) {
+    try {
+      await this.client.connect()
+      const result = await this.client.db(databaseName).collection(collectionName).find({ email: emailIn }).toArray()
+      return result[0].password
+    }
+    catch (e) {
+      console.error(e)
+    }
+    finally {
+      await this.client.close()
+    }
+  }
+
   async createDocument(databaseName, collectionName, documentInfo) {
     try {
       await this.client.connect()
