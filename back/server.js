@@ -2,15 +2,22 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
+const jwt = require('express-jwt')
+const jsonwebtoken = require('jsonwebtoken')
+const cors = require('cors')
 const DAO = require('./DAO')
+const credentials = require('./key.json')
 
 const app = express()
 const saltRounds = 12
+const jwtSecret = credentials.jwtSecret
 const PORT = 5000
 
 app.use(express.static(path.join(__dirname, '../front/build')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors())
+// app.use(jwt({ secret: jwtSecret }))
 
 app.post('/loginRequest', async (req, res) => {
   const dao = new DAO()
@@ -25,6 +32,8 @@ app.post('/loginRequest', async (req, res) => {
 
   bcrypt.compare(password, hash, function(err, match) {
     if(match) {
+      //const generatedToken = jsonwebtoken.sign({ email: email, password: password }, jwtSecret)
+      //res.send({ message: 'success', token: generatedToken })
       res.send({ message: 'success' })
     }
     else {
@@ -55,7 +64,7 @@ app.post('/signupRequest', async (req, res) => {
 
       try {
         await dao.createDocument(databaseName, collectionName, documentData)
-        res.send({ message: 'success' })
+        res.send({ message: 'success', token: jsonwebtoken.sign({ email: email, password: password }, jwtSecret) })
       }
       catch (error) {
         console.error(error)

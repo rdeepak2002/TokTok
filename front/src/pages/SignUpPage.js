@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom'
 import '../styles/LoginPage.css'
 import logoWhiteRed from '../images/logos/logoWhiteRed.png'
@@ -20,30 +21,15 @@ class SignUpPage extends React.Component {
     event.preventDefault()
 
     if(this.state.password == this.state.confirmPassword) {
-      let data = {}
-
-      data.email = this.state.email.toLowerCase().trim()
-      data.password = this.state.password
-
-      let xmlhttp = new XMLHttpRequest()
-      let theUrl = '/signupRequest'
-
-      xmlhttp.open('POST', theUrl)
-      xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-      xmlhttp.send(JSON.stringify(data))
-
-      xmlhttp.onload  = function (e) {
-        if (xmlhttp.readyState === 4) {
-          if (xmlhttp.status === 200) {
-            let obj = JSON.parse(xmlhttp.responseText)
-            alert(obj.message)
-          } else {
-            console.error(xmlhttp.statusText)
-            console.log(2)
-            alert('Error contacting server.')
-          }
-        }
-      }
+      axios.post('/signupRequest', {
+        email: this.state.email.toLowerCase().trim(),
+        password: this.state.password
+      })
+      .then((response) => {
+        alert(response.data.message)
+      }, (error) => {
+        alert(error)
+      })
     }
     else {
       alert('draw red text saying that the cpass and pass do not match')
