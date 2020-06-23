@@ -19,6 +19,24 @@ class SignUpPage extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this)
   }
 
+  autoLogin = () => {
+    axios.post('/verifyCredentials', {
+      email: localStorage.getItem('email'),
+      secretKey: localStorage.getItem('secretKey')
+    })
+    .then((response) => {
+      if(response.data.message == 'success') {
+        this.setState({loading: false, redirect: true})
+      }
+      else {
+        this.setState({loading: false})
+      }
+    },
+    (error) => {
+      this.setState({loading: false})
+    })
+  }
+
   handleSignUp = (event) => {
     event.preventDefault()
 
@@ -28,11 +46,17 @@ class SignUpPage extends React.Component {
         password: this.state.password
       })
       .then((response) => {
-        const secretKey = response.data.secret
-        localStorage.setItem('secretKey', secretKey)
-        localStorage.setItem('email', this.state.email.toLowerCase().trim())
-        alert(response.data.message)
-      }, (error) => {
+        if(response.data.message == 'success') {
+          const secretKey = response.data.secret
+          localStorage.setItem('secretKey', secretKey)
+          localStorage.setItem('email', this.state.email.toLowerCase().trim())
+          this.setState({redirect: true})
+        }
+        else {
+          alert(response.data.message)
+        }
+      },
+      (error) => {
         alert(error)
       })
     }
@@ -53,9 +77,8 @@ class SignUpPage extends React.Component {
     this.setState({confirmPassword: event.target.value})
   }
 
-  showLoginPage = () => {
-    alert('redirect to login')
-    return <Redirect to='/'/>
+  componentDidMount() {
+    this.autoLogin()
   }
 
   render() {

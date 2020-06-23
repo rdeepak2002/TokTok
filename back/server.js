@@ -18,27 +18,29 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.post('/verifyCredentials', async (req, res) => {
-  const dao = new DAO()
+  if(req.body.email == undefined || req.body.secretKey == undefined) {
+    res.send({ message: 'failure' })
+  }
+  else {
+    const dao = new DAO()
 
-  const email = req.body.email
-  const secretKey = req.body.secretKey
+    const email = req.body.email
+    const secretKey = req.body.secretKey
 
-  console.log(email)
-  console.log(secretKey)
+    const databaseName = 'users'
+    const collectionName = 'accounts'
 
-  const databaseName = 'users'
-  const collectionName = 'accounts'
+    const hash = await dao.getPasswordHash(databaseName, collectionName, email)
 
-  const hash = await dao.getPasswordHash(databaseName, collectionName, email)
-
-  bcrypt.compare(secretKey, hash, function(err, match) {
-    if(match) {
-      res.send({ message: 'success' })
-    }
-    else {
-      res.send({ message: 'incorrect password' })
-    }
-  })
+    bcrypt.compare(secretKey, hash, function(err, match) {
+      if(match) {
+        res.send({ message: 'success' })
+      }
+      else {
+        res.send({ message: 'failure' })
+      }
+    })
+  }
 })
 
 app.post('/loginRequest', async (req, res) => {

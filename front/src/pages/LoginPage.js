@@ -45,10 +45,15 @@ class LoginPage extends React.Component {
       password: this.state.password
     })
     .then((response) => {
-      const secretKey = response.data.secret
-      localStorage.setItem('secretKey', secretKey)
-      localStorage.setItem('email', this.state.email.toLowerCase().trim())
-      alert(response.data.message)
+      if(response.data.message == 'success') {
+        const secretKey = response.data.secret
+        localStorage.setItem('secretKey', secretKey)
+        localStorage.setItem('email', this.state.email.toLowerCase().trim())
+        this.setState({redirect: true})
+      }
+      else {
+        alert(response.data.message)
+      }
     },
     (error) => {
       alert(error)
