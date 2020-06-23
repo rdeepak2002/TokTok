@@ -21,7 +21,7 @@ Add the following mongodb credentials
   "username" : "<mongodb username>",
   "password" : "<mongodb password>",
   "cluster" : "<mongodb cluster>",
-  "jwtSecret" : "<some really long, randomly generated string>"
+  "secret" : "<some really long, randomly generated string with numbers and symbols>"
 }
 ```
 

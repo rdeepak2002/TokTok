@@ -1,4 +1,5 @@
 import React from 'react'
+import Loader from 'react-loader-spinner'
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom'
 import '../styles/LoginPage.css'
@@ -8,6 +9,7 @@ class SignUpPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      loading: true,
       redirect: false,
       email: '',
       password: '',
@@ -26,6 +28,9 @@ class SignUpPage extends React.Component {
         password: this.state.password
       })
       .then((response) => {
+        const secretKey = response.data.secret
+        localStorage.setItem('secretKey', secretKey)
+        localStorage.setItem('email', this.state.email.toLowerCase().trim())
         alert(response.data.message)
       }, (error) => {
         alert(error)
@@ -54,9 +59,21 @@ class SignUpPage extends React.Component {
   }
 
   render() {
-    const { redirect } = this.state
+    const { redirect, loading } = this.state
 
-    if (redirect) {
+    if(loading) {
+      return (
+        <div className="loader">
+          <Loader
+            type="Bars"
+            color="#FF0000"
+            height={100}
+            width={100}
+          />
+        </div>
+      )
+    }
+    else if (redirect) {
       return <Redirect to='/home'/>
     }
     else {

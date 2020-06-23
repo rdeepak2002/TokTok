@@ -6,6 +6,12 @@ class HomePage extends React.Component {
     redirect: false
   }
 
+  signOut = () => {
+    localStorage.setItem('email', null)
+    localStorage.setItem('secretKey', null)
+    this.setState({redirect: true})
+  }
+
   render() {
     const { redirect } = this.state;
 
@@ -17,7 +23,7 @@ class HomePage extends React.Component {
         <div className='container'>
           <h1>Home Page</h1>
           <p>
-            <Link to="/">sign out</Link>
+            <button onClick={this.signOut}>sign out</button>
           </p>
         </div>
       )
