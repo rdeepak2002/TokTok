@@ -9,7 +9,7 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
+      loading: false,
       redirect: false,
       email: '',
       password: ''
@@ -17,24 +17,6 @@ class LoginPage extends React.Component {
 
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
-  }
-
-  autoLogin = () => {
-    axios.post('/verifyCredentials', {
-      email: localStorage.getItem('email'),
-      secretKey: localStorage.getItem('secretKey')
-    })
-    .then((response) => {
-      if(response.data.message == 'success') {
-        this.setState({loading: false, redirect: true})
-      }
-      else {
-        this.setState({loading: false})
-      }
-    },
-    (error) => {
-      this.setState({loading: false})
-    })
   }
 
   handleLogin = (event) => {
@@ -68,10 +50,6 @@ class LoginPage extends React.Component {
     this.setState({password: event.target.value})
   }
 
-  componentDidMount() {
-    this.autoLogin()
-  }
-
   render() {
     const { redirect, loading } = this.state
 
@@ -88,7 +66,7 @@ class LoginPage extends React.Component {
       )
     }
     else if (redirect) {
-      return <Redirect to='/home'/>
+      return <Redirect to='/'/>
     }
     else {
       const Navbar = () => (

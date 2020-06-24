@@ -25,7 +25,12 @@ class DAO {
     try {
       await this.client.connect()
       const result = await this.client.db(databaseName).collection(collectionName).find({ email: emailIn }).toArray()
-      return result[0].password
+      if(result == undefined || result[0] == undefined) {
+        return ''
+      }
+      else {
+        return result[0].password
+      }
     }
     catch (e) {
       console.error(e)

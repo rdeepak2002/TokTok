@@ -53,7 +53,7 @@ class HomePage extends React.Component {
       )
     }
     else if (redirect) {
-      return <Redirect to='/'/>
+      return <Redirect to='/login'/>
     }
     else {
       return (

@@ -9,7 +9,7 @@ class SignUpPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      loading: true,
+      loading: false,
       redirect: false,
       email: '',
       password: '',
@@ -17,24 +17,6 @@ class SignUpPage extends React.Component {
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this)
-  }
-
-  autoLogin = () => {
-    axios.post('/verifyCredentials', {
-      email: localStorage.getItem('email'),
-      secretKey: localStorage.getItem('secretKey')
-    })
-    .then((response) => {
-      if(response.data.message == 'success') {
-        this.setState({loading: false, redirect: true})
-      }
-      else {
-        this.setState({loading: false})
-      }
-    },
-    (error) => {
-      this.setState({loading: false})
-    })
   }
 
   handleSignUp = (event) => {
@@ -77,10 +59,6 @@ class SignUpPage extends React.Component {
     this.setState({confirmPassword: event.target.value})
   }
 
-  componentDidMount() {
-    this.autoLogin()
-  }
-
   render() {
     const { redirect, loading } = this.state
 
@@ -97,13 +75,13 @@ class SignUpPage extends React.Component {
       )
     }
     else if (redirect) {
-      return <Redirect to='/home'/>
+      return <Redirect to='/'/>
     }
     else {
       const Navbar = () => (
         <div className='navbar'>
 
-          <Link to="/" className='navbar-item clickable noBottomBorder' style={{ textDecoration: 'none' }} >
+          <Link to="/login" className='navbar-item clickable noBottomBorder' style={{ textDecoration: 'none' }} >
             Login
           </Link>
 
@@ -129,7 +107,7 @@ class SignUpPage extends React.Component {
                 <input className='passwordInput' type='password' placeholder='Confirm password' onChange={this.handleConfirmPasswordChange}></input>
                 <input className='loginBtn clickable' type='submit' value='SIGN UP'></input>
               </form>
-              <div>Already have an account? <Link to="/" className='clickable hyperlink' style={{ textDecoration: 'none' }} >Login Here</Link></div>
+              <div>Already have an account? <Link to="/login" className='clickable hyperlink' style={{ textDecoration: 'none' }} >Login Here</Link></div>
             </div>
           </div>
 
