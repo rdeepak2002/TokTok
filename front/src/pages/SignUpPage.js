@@ -22,13 +22,13 @@ class SignUpPage extends React.Component {
   handleSignUp = (event) => {
     event.preventDefault()
 
-    if(this.state.password == this.state.confirmPassword) {
+    if(this.state.password === this.state.confirmPassword) {
       axios.post('/signupRequest', {
         email: this.state.email.toLowerCase().trim(),
         password: this.state.password
       })
       .then((response) => {
-        if(response.data.message == 'success') {
+        if(response.data.message === 'success') {
           const secretKey = response.data.secret
           localStorage.setItem('secretKey', secretKey)
           localStorage.setItem('email', this.state.email.toLowerCase().trim())

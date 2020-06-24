@@ -27,7 +27,7 @@ class LoginPage extends React.Component {
       password: this.state.password
     })
     .then((response) => {
-      if(response.data.message == 'success') {
+      if(response.data.message === 'success') {
         const secretKey = response.data.secret
         localStorage.setItem('secretKey', secretKey)
         localStorage.setItem('email', this.state.email.toLowerCase().trim())

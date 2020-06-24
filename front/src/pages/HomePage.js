@@ -15,7 +15,7 @@ class HomePage extends React.Component {
       secretKey: localStorage.getItem('secretKey')
     })
     .then((response) => {
-      if(response.data.message != 'success') {
+      if(response.data.message !== 'success') {
         this.setState({loading: false, redirect: true})
       }
       else {
