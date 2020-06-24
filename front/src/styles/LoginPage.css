@@ -19,7 +19,7 @@ form > input {
   padding: 1rem;
   border-radius: 50px;
   border: none;
-  margin-top: 4rem;
+  margin-top: 2rem;
   width: 76%;
 }
 
@@ -95,6 +95,13 @@ form > input {
   margin: 20px;
   font-size: 2rem;
   font-style: bold;
+}
+
+.error {
+  margin-top: 2rem;
+  height: 1rem;
+  color: red;
+  font-size: 1rem;
 }
 
 .bottomBorder {

@@ -12,7 +12,8 @@ class LoginPage extends React.Component {
       loading: false,
       redirect: false,
       email: '',
-      password: ''
+      password: '',
+      error: ''
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -24,28 +25,31 @@ class LoginPage extends React.Component {
 
     this.setState({loading: true})
 
-    axios.post('/loginRequest', {
-      email: this.state.email.toLowerCase().trim(),
-      password: this.state.password
-    })
-    .then((response) => {
-      if(response.data.message === 'success') {
-        const secretKey = response.data.secret
-        localStorage.setItem('secretKey', secretKey)
-        localStorage.setItem('email', this.state.email.toLowerCase().trim())
-        this.setState({redirect: true})
-      }
-      else {
-        alert(response.data.message)
-      }
+    if(this.state.email.toLowerCase().trim().length <= 0 || this.state.password.length <= 0) {
+      this.setState({loading: false, error: 'fields cannot be blank'})
+    }
+    else {
+      axios.post('/loginRequest', {
+        email: this.state.email.toLowerCase().trim(),
+        password: this.state.password
+      })
+      .then((response) => {
+        if(response.data.message === 'success') {
+          const secretKey = response.data.secret
+          localStorage.setItem('secretKey', secretKey)
+          localStorage.setItem('email', this.state.email.toLowerCase().trim())
+          this.setState({redirect: true})
+        }
+        else {
+          this.setState({error: response.data.message})
+        }
 
-      this.setState({loading: false})
-    },
-    (error) => {
-      alert(error)
-
-      this.setState({loading: false})
-    })
+        this.setState({loading: false})
+      },
+      (error) => {
+        this.setState({loading: false, error: error})
+      })
+    }
   }
 
   handleEmailChange = (event) => {
@@ -100,6 +104,7 @@ class LoginPage extends React.Component {
               <form onSubmit={this.handleLogin} className='form'>
                 <input className='emailInput' type='email' placeholder='Email' onChange={this.handleEmailChange}></input>
                 <input className='passwordInput' type='password' placeholder='Password' onChange={this.handlePasswordChange}></input>
+                <div className='error'>{this.state.error}</div>
                 <input className='loginBtn clickable' type='submit' value='SIGN IN'></input>
               </form>
             </div>

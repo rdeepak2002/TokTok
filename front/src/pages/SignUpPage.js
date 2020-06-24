@@ -13,7 +13,8 @@ class SignUpPage extends React.Component {
       redirect: false,
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      error: ''
     }
 
     this.handleEmailChange = this.handleEmailChange.bind(this)
@@ -24,7 +25,16 @@ class SignUpPage extends React.Component {
 
     this.setState({loading: true})
 
-    if(this.state.password === this.state.confirmPassword) {
+    if(this.state.email.toLowerCase().trim().length <= 0 || this.state.password.length <= 0) {
+      this.setState({loading: false, error: 'fields cannot be blank'})
+    }
+    else if(this.state.password.length <= 5) {
+      this.setState({loading: false, error: 'password must be at least 6 characters long'})
+    }
+    else if(this.state.password !== this.state.confirmPassword) {
+      this.setState({loading: false, error: 'passwords do not match'})
+    }
+    else {
       axios.post('/signupRequest', {
         email: this.state.email.toLowerCase().trim(),
         password: this.state.password
@@ -37,20 +47,16 @@ class SignUpPage extends React.Component {
           this.setState({redirect: true})
         }
         else {
-          alert(response.data.message)
+          this.setState({error: response.data.message})
         }
 
         this.setState({loading: false})
       },
       (error) => {
-        alert(error)
-
-        this.setState({loading: false})
+        this.setState({loading: false, error: error})
       })
     }
-    else {
-      alert('draw red text saying that the cpass and pass do not match')
-    }
+
   }
 
   handleEmailChange = (event) => {
@@ -111,6 +117,7 @@ class SignUpPage extends React.Component {
                 <input className='emailInput' type='email' placeholder='Email' onChange={this.handleEmailChange}></input>
                 <input className='passwordInput' type='password' placeholder='Password' onChange={this.handlePasswordChange}></input>
                 <input className='passwordInput' type='password' placeholder='Confirm password' onChange={this.handleConfirmPasswordChange}></input>
+                <div className='error'>{this.state.error}</div>
                 <input className='loginBtn clickable' type='submit' value='SIGN UP'></input>
               </form>
             </div>
