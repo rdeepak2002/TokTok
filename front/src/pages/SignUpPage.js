@@ -22,6 +22,8 @@ class SignUpPage extends React.Component {
   handleSignUp = (event) => {
     event.preventDefault()
 
+    this.setState({loading: true})
+
     if(this.state.password === this.state.confirmPassword) {
       axios.post('/signupRequest', {
         email: this.state.email.toLowerCase().trim(),
@@ -37,9 +39,13 @@ class SignUpPage extends React.Component {
         else {
           alert(response.data.message)
         }
+
+        this.setState({loading: false})
       },
       (error) => {
         alert(error)
+
+        this.setState({loading: false})
       })
     }
     else {
@@ -107,7 +113,6 @@ class SignUpPage extends React.Component {
                 <input className='passwordInput' type='password' placeholder='Confirm password' onChange={this.handleConfirmPasswordChange}></input>
                 <input className='loginBtn clickable' type='submit' value='SIGN UP'></input>
               </form>
-              <div>Already have an account? <Link to="/login" className='clickable hyperlink' style={{ textDecoration: 'none' }} >Login Here</Link></div>
             </div>
           </div>
 

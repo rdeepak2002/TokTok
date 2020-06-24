@@ -11,6 +11,10 @@ body  {
   padding: 0;
 }
 
+input  {
+  -webkit-appearance: none;
+}
+
 .loader {
   width: 100px;
   height: 100px;

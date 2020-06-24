@@ -22,6 +22,8 @@ class LoginPage extends React.Component {
   handleLogin = (event) => {
     event.preventDefault()
 
+    this.setState({loading: true})
+
     axios.post('/loginRequest', {
       email: this.state.email.toLowerCase().trim(),
       password: this.state.password
@@ -36,9 +38,13 @@ class LoginPage extends React.Component {
       else {
         alert(response.data.message)
       }
+
+      this.setState({loading: false})
     },
     (error) => {
       alert(error)
+
+      this.setState({loading: false})
     })
   }
 
@@ -96,7 +102,6 @@ class LoginPage extends React.Component {
                 <input className='passwordInput' type='password' placeholder='Password' onChange={this.handlePasswordChange}></input>
                 <input className='loginBtn clickable' type='submit' value='SIGN IN'></input>
               </form>
-              <div>New to TokTok? <Link to="/signup" className='clickable hyperlink' style={{ textDecoration: 'none' }} >Sign Up Here</Link></div>
             </div>
           </div>
 
