@@ -3,8 +3,6 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
-// const jsonwebtoken = require('jsonwebtoken')
-// const cors = require('cors')
 const DAO = require('./DAO')
 const credentials = require('./key.json')
 
@@ -98,6 +96,10 @@ app.post('/signupRequest', async (req, res) => {
       }
     })
   }
+})
+
+app.get('/.well-known/pki-validation/516F8DC54D7DEBB4AC0FB6BDA1345E88.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, '516F8DC54D7DEBB4AC0FB6BDA1345E88.txt'))
 })
 
 app.get('/*', (req, res) => {
