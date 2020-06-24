@@ -1,0 +1,90 @@
+@media screen and (min-width: 600px) {
+  .addCounterBtn {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: #fc4747;
+    color: white;
+    border: solid white;
+    height: 3rem;
+    width: 12rem;
+    font-size: 1rem;
+    border-width: 5px;
+    margin: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .timerBox {
+    margin: 0.5rem !important;
+  }
+}
+
+.timerBox {
+  width: 15rem;
+  height: 15rem;
+  border: solid black;
+  background-color: white;
+}
+
+.signOutBtn {
+  color: white;
+  font-size: 2rem;
+  background-color: #fc4747;
+  padding: 1rem;
+  border-radius: 50px;
+  border: none;
+  margin-top: 2rem;
+  width: 12rem;
+}
+
+.addCounterBtn {
+  background-color: #fc4747;
+  color: white;
+  border: solid white;
+  height: 3rem;
+  width: 12rem;
+  font-size: 1rem;
+  border-width: 5px;
+  margin: 1rem;
+}
+
+.timerBoxCountdowns {
+  margin-top: 1.5rem;
+}
+
+.timerBox {
+  margin: 2rem;
+  border-radius: 10px;
+  border-width: 2px;
+}
+
+.countdown {
+  width: 33.33%;
+  display: inline-block;
+}
+
+.timerBox > h2 {
+  text-align: center;
+}
+
+.timerBox > h1 {
+  text-align: center;
+  font-size: 3rem;
+  margin: 0;
+}
+
+.timerBox > p {
+  text-align: center;
+  margin: 0;
+}
+
+.countdown > h1 {
+  text-align: center;
+  margin: 0;
+}
+
+.countdown > p {
+  text-align: center;
+  margin: 0;
+}

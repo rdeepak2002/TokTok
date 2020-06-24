@@ -15,6 +15,27 @@ input  {
   -webkit-appearance: none;
 }
 
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  background-color: white;
+}
+
+.centerFlex {
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.primaryColor {
+  background: #fc4747;
+}
+
+.whiteColor {
+  background: white;
+}
+
 .loader {
   width: 100px;
   height: 100px;

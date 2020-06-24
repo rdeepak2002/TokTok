@@ -2,6 +2,7 @@ import React from 'react'
 import Loader from 'react-loader-spinner'
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom'
+import '../styles/HomePage.css'
 
 class HomePage extends React.Component {
   state = {
@@ -42,13 +43,15 @@ class HomePage extends React.Component {
 
     if(loading) {
       return (
-        <div className="loader">
-          <Loader
-            type="Bars"
-            color="#FF0000"
-            height={100}
-            width={100}
-          />
+        <div className='flexContainer primaryColor'>
+          <div className='loader'>
+            <Loader
+              type='Bars'
+              color='white'
+              height={100}
+              width={100}
+            />
+          </div>
         </div>
       )
     }
@@ -57,11 +60,53 @@ class HomePage extends React.Component {
     }
     else {
       return (
-        <div className='container'>
-          <h1>Home Page</h1>
-          <p>
-            <button onClick={this.signOut}>sign out</button>
-          </p>
+        <div className='flexContainer centerFlex primaryColor'>
+          <button className='addCounterBtn'>Add New Counter</button>
+
+          <div className='timerBox'>
+            <h2>timer title</h2>
+            <h1>5</h1>
+            <p>days</p>
+            <div className='timerBoxCountdowns'>
+              <div className='countdown'>
+                <h1>23</h1>
+                <p>hours</p>
+              </div>
+
+              <div className='countdown'>
+                <h1>58</h1>
+                <p>minutes</p>
+              </div>
+
+              <div className='countdown'>
+                <h1>77</h1>
+                <p>seconds</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='timerBox'>
+            <h2>timer title</h2>
+            <h1>5</h1>
+            <p>days</p>
+            <div className='timerBoxCountdowns'>
+              <div className='countdown'>
+                <h1>23</h1>
+                <p>hours</p>
+              </div>
+
+              <div className='countdown'>
+                <h1>58</h1>
+                <p>minutes</p>
+              </div>
+
+              <div className='countdown'>
+                <h1>77</h1>
+                <p>seconds</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       )
     }

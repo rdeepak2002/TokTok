@@ -20,6 +20,11 @@ class LoginPage extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
   }
 
+  signOut = () => {
+    localStorage.setItem('email', null)
+    localStorage.setItem('secretKey', null)
+  }
+
   handleLogin = (event) => {
     event.preventDefault()
 
@@ -60,18 +65,24 @@ class LoginPage extends React.Component {
     this.setState({password: event.target.value})
   }
 
+  componentDidMount() {
+    this.signOut()
+  }
+
   render() {
     const { redirect, loading } = this.state
 
     if(loading) {
       return (
-        <div className="loader">
-          <Loader
-            type="Bars"
-            color="#FF0000"
-            height={100}
-            width={100}
-          />
+        <div className='flexContainer primaryColor'>
+          <div className='loader'>
+            <Loader
+              type='Bars'
+              color='white'
+              height={100}
+              width={100}
+            />
+          </div>
         </div>
       )
     }
