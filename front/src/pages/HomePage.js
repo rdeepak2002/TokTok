@@ -134,29 +134,48 @@ class HomePage extends React.Component {
             delta -= dMinutes * 60
             const dSeconds = Math.round(delta % 60)
 
-            return (
-              <div className='timerBox'>
-                <h2>{timerTitle}</h2>
-                <h1>{dDays}</h1>
-                <p>days</p>
-                <div className='timerBoxCountdowns'>
-                  <div className='countdown'>
-                    <h1>{dHours}</h1>
-                    <p>hours</p>
-                  </div>
+            if(curDate >= timerDate && dDays < 1) {
+              return (
+                <div className='timerBox'>
+                  <h2>{timerTitle}</h2>
+                  <h1 className='doneTimerText'>NOW</h1>
+                </div>
+              )
+            }
+            else if(curDate >= timerDate) {
+              return (
+                <div className='timerBox'>
+                  <h2>{timerTitle}</h2>
+                  <h1 className='doneTimerText'>PASSED</h1>
+                </div>
+              )
+            }
+            else {
+              return (
+                <div className='timerBox'>
+                  <h2>{timerTitle}</h2>
+                  <h1>{dDays}</h1>
+                  <p>days</p>
+                  <div className='timerBoxCountdowns'>
+                    <div className='countdown'>
+                      <h1>{dHours}</h1>
+                      <p>hours</p>
+                    </div>
 
-                  <div className='countdown'>
-                    <h1>{dMinutes}</h1>
-                    <p>minutes</p>
-                  </div>
+                    <div className='countdown'>
+                      <h1>{dMinutes}</h1>
+                      <p>minutes</p>
+                    </div>
 
-                  <div className='countdown'>
-                    <h1>{dSeconds}</h1>
-                    <p>seconds</p>
+                    <div className='countdown'>
+                      <h1>{dSeconds}</h1>
+                      <p>seconds</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
+              )
+            }
+
           })}
 
         </div>

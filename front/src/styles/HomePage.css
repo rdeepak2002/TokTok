@@ -66,6 +66,11 @@
   display: inline-block;
 }
 
+.doneTimerText {
+  height: 10rem;
+  padding-top: 2rem;
+}
+
 .timerBox > h2 {
   text-align: center;
 }
