@@ -7,6 +7,32 @@ class DAO {
     this.client = new MongoClient(this.uri, { useUnifiedTopology: true })
   }
 
+  async createDocument(databaseName, collectionName, documentInfo) {
+    try {
+      await this.client.connect()
+      const result = await this.client.db(databaseName).collection(collectionName).insertOne(documentInfo)
+    }
+    catch (e) {
+      console.error(e)
+    }
+    finally {
+      await this.client.close()
+    }
+  }
+
+  async deleteDocument(databaseName, collectionName, documentInfo) {
+    try {
+      await this.client.connect()
+      const result = await this.client.db(databaseName).collection(collectionName).deleteOne(documentInfo)
+    }
+    catch (e) {
+      console.error(e)
+    }
+    finally {
+      await this.client.close()
+    }
+  }
+
   async userExists(databaseName, collectionName, emailIn) {
     try {
       await this.client.connect()
@@ -31,19 +57,6 @@ class DAO {
       else {
         return result[0].password
       }
-    }
-    catch (e) {
-      console.error(e)
-    }
-    finally {
-      await this.client.close()
-    }
-  }
-
-  async createDocument(databaseName, collectionName, documentInfo) {
-    try {
-      await this.client.connect()
-      const result = await this.client.db(databaseName).collection(collectionName).insertOne(documentInfo)
     }
     catch (e) {
       console.error(e)

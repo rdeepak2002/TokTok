@@ -15,9 +15,27 @@ app.use(express.static(path.join(__dirname, '../front/build')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.post('/deleteTimer', async (req, res) => {
+  if(req.body.timerTitle == undefined) {
+    res.send({ message: 'failure' })
+  }
+  else {
+    const dao = new DAO()
+
+    const documentData = { 'timerTitle': req.body.timerTitle }
+
+    const databaseName = 'users'
+    const collectionName = 'timers'
+
+    await dao.deleteDocument(databaseName, collectionName, documentData)
+
+    res.send({ message: 'success' })
+  }
+})
+
 app.post('/getTimers', async (req, res) => {
   if(req.body.email == undefined) {
-    res.send({ message: 'failure' })
+    res.send({ message: 'failure', timers: []  })
   }
   else {
     const dao = new DAO()
@@ -26,7 +44,6 @@ app.post('/getTimers', async (req, res) => {
 
     const databaseName = 'users'
     const collectionName = 'timers'
-    const query = {}
 
     const timers = await dao.getTimers(databaseName, collectionName, email)
 

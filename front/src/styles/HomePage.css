@@ -34,6 +34,10 @@
   color: black;
 }
 
+.delTimerBtn {
+  position: absolute;
+}
+
 .Modal {
   width: 40rem;
   height: 20rem;

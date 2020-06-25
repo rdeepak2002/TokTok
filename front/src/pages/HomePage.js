@@ -120,6 +120,28 @@ class HomePage extends React.Component {
     this.setState({ showModal: false })
   }
 
+  deleteTimer = (eventTitle) => {
+    if (window.confirm(`Delete ${eventTitle}?`)) {
+      this.setState({loading: true})
+
+      axios.post('/deleteTimer', {
+        timerTitle: eventTitle
+      })
+      .then((response) => {
+        if(response.data.message === 'success') {
+          window.location.reload(false)
+        }
+        else {
+          alert(response.data.message)
+          this.setState({loading: false})
+        }
+      },
+      (error) => {
+        this.setState({loading: false})
+      })
+    }
+  }
+
   componentDidMount() {
     this.autoLogin()
   }
@@ -178,7 +200,7 @@ class HomePage extends React.Component {
 
               if(curDate >= timerDate && dDays < 1) {
                 return (
-                  <div className='timerBox'>
+                  <div onClick={this.deleteTimer.bind(this, timerTitle)} className='timerBox clickable'>
                     <h2>{timerTitle}</h2>
                     <h1 className='doneTimerText'>TODAY</h1>
                   </div>
@@ -186,7 +208,7 @@ class HomePage extends React.Component {
               }
               else if(curDate >= timerDate) {
                 return (
-                  <div className='timerBox'>
+                  <div onClick={this.deleteTimer.bind(this, timerTitle)} className='timerBox clickable'>
                     <h2>{timerTitle}</h2>
                     <h1 className='doneTimerText'>PASSED</h1>
                   </div>
@@ -194,7 +216,7 @@ class HomePage extends React.Component {
               }
               else {
                 return (
-                  <div className='timerBox'>
+                  <div onClick={this.deleteTimer.bind(this, timerTitle)} className='timerBox clickable'>
                     <h2>{timerTitle}</h2>
                     <h1>{dDays}</h1>
                     <p>days</p>
