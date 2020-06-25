@@ -1,14 +1,32 @@
 import React from 'react'
 import Loader from 'react-loader-spinner'
+import Modal from 'react-modal'
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom'
 import '../styles/HomePage.css'
 
 class HomePage extends React.Component {
-  state = {
-    redirect: false,
-    loading: true,
-    timers: []
+  constructor(props) {
+    super(props)
+    this.state = {
+      redirect: false,
+      loading: true,
+      timers: [],
+      showModal: false,
+      modalTitle: '',
+      modalDate: new Date()
+    }
+
+    this.handleDateChange = this.handleDateChange.bind(this)
+    this.handleTitleChange = this.handleTitleChange.bind(this)
+  }
+
+  handleDateChange = (event) => {
+    this.setState({modalDate: event.target.value})
+  }
+
+  handleTitleChange = (event) => {
+    this.setState({modalTitle: event.target.value})
   }
 
   updateTimers = () => {
@@ -44,8 +62,8 @@ class HomePage extends React.Component {
 
     axios.post('/createTimer', {
       email: localStorage.getItem('email'),
-      timerTitle: 'example timer',
-      timerDate: new Date()
+      timerTitle: this.state.modalTitle,
+      timerDate: this.state.modalDate
     })
     .then((response) => {
       if(response.data.message === 'success') {
@@ -87,6 +105,14 @@ class HomePage extends React.Component {
     this.setState({redirect: true})
   }
 
+  handleOpenModal = () => {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  }
+
   componentDidMount() {
     this.autoLogin()
   }
@@ -118,7 +144,14 @@ class HomePage extends React.Component {
     else {
       return (
         <div className='flexContainer centerFlex primaryColor topOffset'>
-          <button className='addCounterBtn' onClick={this.createTimer}>Add New Counter</button>
+          <button className='addCounterBtn' onClick={this.handleOpenModal}>Add New Counter</button>
+
+          <Modal isOpen={this.state.showModal} contentLabel='Minimal Modal Example' className='Modal' overlayClassName='Overlay' onRequestClose={this.handleCloseModal} shouldCloseOnOverlayClick={true}>
+            <input className='modalTitleInput' type='text' placeholder='Event Name' onChange={this.handleTitleChange}></input>
+            <input className='modalDateInput' type='date' placeholder='Date' onChange={this.handleDateChange}></input>
+
+            <button onClick={this.createTimer} className='createCounterBtn'>Create Timer</button>
+          </Modal>
 
           {this.state.timers.map(timer => {
             const curDate = new Date()
@@ -138,7 +171,7 @@ class HomePage extends React.Component {
               return (
                 <div className='timerBox'>
                   <h2>{timerTitle}</h2>
-                  <h1 className='doneTimerText'>NOW</h1>
+                  <h1 className='doneTimerText'>TODAY</h1>
                 </div>
               )
             }

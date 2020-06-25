@@ -2,6 +2,11 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 body > #root {
   height: 100vh;
 }

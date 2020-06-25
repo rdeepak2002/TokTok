@@ -29,6 +29,7 @@ form > input {
   border-radius: 15px;
   padding: 1rem;
   width: 70%;
+  border-color: rgba(50, 50, 50, 1.0);
 }
 
 .form {
