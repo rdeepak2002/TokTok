@@ -20,6 +20,7 @@ input  {
   flex-wrap: wrap;
   height: 100%;
   background-color: white;
+  overflow-y: scroll;
 }
 
 .centerFlex {

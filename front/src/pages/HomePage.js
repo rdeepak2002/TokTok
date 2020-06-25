@@ -7,7 +7,58 @@ import '../styles/HomePage.css'
 class HomePage extends React.Component {
   state = {
     redirect: false,
-    loading: true
+    loading: true,
+    timers: []
+  }
+
+  updateTimers = () => {
+    this.setState({})
+  }
+
+  getTimers = () => {
+    if(localStorage.getItem('email') !== undefined) {
+      axios.post('/getTimers', {
+        email: localStorage.getItem('email')
+      })
+      .then((response) => {
+        if(response.data.message === 'success') {
+          this.setState({timers: response.data.timers, loading: false})
+        }
+        else {
+          alert('failure!')
+          this.setState({loading: false})
+        }
+      },
+      (error) => {
+        this.setState({loading: false})
+        alert(error)
+      })
+    }
+    else {
+      this.setState({redirect:true, loading: false})
+    }
+  }
+
+  createTimer = () => {
+    this.setState({loading: true})
+
+    axios.post('/createTimer', {
+      email: localStorage.getItem('email'),
+      timerTitle: 'example timer',
+      timerDate: new Date()
+    })
+    .then((response) => {
+      if(response.data.message === 'success') {
+        window.location.reload(false)
+      }
+      else {
+        alert(response.data.message)
+        this.setState({loading: false})
+      }
+    },
+    (error) => {
+      this.setState({loading: false})
+    })
   }
 
   autoLogin = () => {
@@ -20,7 +71,9 @@ class HomePage extends React.Component {
         this.setState({loading: false, redirect: true})
       }
       else {
-        this.setState({loading: false})
+        this.getTimers()
+
+        this.interval = setInterval(this.updateTimers, 1000)
       }
     },
     (error) => {
@@ -36,6 +89,10 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     this.autoLogin()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
@@ -60,52 +117,47 @@ class HomePage extends React.Component {
     }
     else {
       return (
-        <div className='flexContainer centerFlex primaryColor'>
-          <button className='addCounterBtn'>Add New Counter</button>
+        <div className='flexContainer centerFlex primaryColor topOffset'>
+          <button className='addCounterBtn' onClick={this.createTimer}>Add New Counter</button>
 
-          <div className='timerBox'>
-            <h2>timer title</h2>
-            <h1>5</h1>
-            <p>days</p>
-            <div className='timerBoxCountdowns'>
-              <div className='countdown'>
-                <h1>23</h1>
-                <p>hours</p>
-              </div>
+          {this.state.timers.map(timer => {
+            const curDate = new Date()
+            const timerDate = new Date(timer.timerDate)
+            const timerTitle = timer.timerTitle
 
-              <div className='countdown'>
-                <h1>58</h1>
-                <p>minutes</p>
-              </div>
+            let delta = Math.abs(curDate - timerDate) / 1000
+            const dDays = Math.floor(delta / 86400)
+            delta -= dDays * 86400
+            const dHours = Math.floor(delta / 3600) % 24
+            delta -= dHours * 3600
+            const dMinutes = Math.floor(delta / 60) % 60
+            delta -= dMinutes * 60
+            const dSeconds = Math.round(delta % 60)
 
-              <div className='countdown'>
-                <h1>77</h1>
-                <p>seconds</p>
-              </div>
-            </div>
-          </div>
+            return (
+              <div className='timerBox'>
+                <h2>{timerTitle}</h2>
+                <h1>{dDays}</h1>
+                <p>days</p>
+                <div className='timerBoxCountdowns'>
+                  <div className='countdown'>
+                    <h1>{dHours}</h1>
+                    <p>hours</p>
+                  </div>
 
-          <div className='timerBox'>
-            <h2>timer title</h2>
-            <h1>5</h1>
-            <p>days</p>
-            <div className='timerBoxCountdowns'>
-              <div className='countdown'>
-                <h1>23</h1>
-                <p>hours</p>
-              </div>
+                  <div className='countdown'>
+                    <h1>{dMinutes}</h1>
+                    <p>minutes</p>
+                  </div>
 
-              <div className='countdown'>
-                <h1>58</h1>
-                <p>minutes</p>
+                  <div className='countdown'>
+                    <h1>{dSeconds}</h1>
+                    <p>seconds</p>
+                  </div>
+                </div>
               </div>
-
-              <div className='countdown'>
-                <h1>77</h1>
-                <p>seconds</p>
-              </div>
-            </div>
-          </div>
+            )
+          })}
 
         </div>
       )

@@ -15,6 +15,46 @@ app.use(express.static(path.join(__dirname, '../front/build')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.post('/getTimers', async (req, res) => {
+  if(req.body.email == undefined) {
+    res.send({ message: 'failure' })
+  }
+  else {
+    const dao = new DAO()
+
+    const email = req.body.email
+
+    const databaseName = 'users'
+    const collectionName = 'timers'
+    const query = {}
+
+    const timers = await dao.getTimers(databaseName, collectionName, email)
+
+    res.send({ message: 'success', timers: timers })
+  }
+})
+
+app.post('/createTimer', async (req, res) => {
+  if(req.body.email == undefined) {
+    res.send({ message: 'failure' })
+  }
+  else {
+    const dao = new DAO()
+
+    const timerTitle = req.body.timerTitle
+    const timerDate = req.body.timerDate
+    const email = req.body.email
+
+    const databaseName = 'users'
+    const collectionName = 'timers'
+    const documentData = { 'email' : email, 'timerTitle' : timerTitle, 'timerDate' : timerDate }
+
+    await dao.createDocument(databaseName, collectionName, documentData)
+
+    res.send({ message: 'success' })
+  }
+})
+
 app.post('/verifyCredentials', async (req, res) => {
   if(req.body.email == undefined || req.body.secretKey == undefined) {
     res.send({ message: 'failure' })
