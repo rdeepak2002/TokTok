@@ -85,7 +85,7 @@ class SignUpPage extends React.Component {
 
     if(loading) {
       return (
-        <div className='flexContainer primaryColor'>
+        <div className='flexContainer primaryColor fullHeight'>
           <div className='loader'>
             <Loader
               type='Bars'
@@ -115,7 +115,7 @@ class SignUpPage extends React.Component {
       )
 
       return (
-        <div className='flexContainer'>
+        <div className='flexContainer fullHeight'>
           <div className='halfColumn primaryColor centerColumnItems'>
             <h1 className='logoTitle'>TOKTOK</h1>
             <h2 className='logoSubtitle'>keep track of everything</h2>

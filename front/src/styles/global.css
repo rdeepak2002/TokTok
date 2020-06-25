@@ -20,10 +20,13 @@ input  {
   -webkit-appearance: none;
 }
 
+.fullHeight {
+  height: 100%;
+}
+
 .flexContainer {
   display: flex;
   flex-wrap: wrap;
-  height: 100%;
   background-color: white;
   overflow-y: scroll;
 }

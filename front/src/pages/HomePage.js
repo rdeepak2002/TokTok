@@ -58,25 +58,31 @@ class HomePage extends React.Component {
   }
 
   createTimer = () => {
-    this.setState({loading: true})
 
-    axios.post('/createTimer', {
-      email: localStorage.getItem('email'),
-      timerTitle: this.state.modalTitle,
-      timerDate: this.state.modalDate
-    })
-    .then((response) => {
-      if(response.data.message === 'success') {
-        window.location.reload(false)
-      }
-      else {
-        alert(response.data.message)
+    if(this.state.modalTitle.length > 0 && this.state.modalDate !== undefined) {
+      this.setState({loading: true})
+
+      axios.post('/createTimer', {
+        email: localStorage.getItem('email'),
+        timerTitle: this.state.modalTitle,
+        timerDate: this.state.modalDate
+      })
+      .then((response) => {
+        if(response.data.message === 'success') {
+          window.location.reload(false)
+        }
+        else {
+          alert(response.data.message)
+          this.setState({loading: false})
+        }
+      },
+      (error) => {
         this.setState({loading: false})
-      }
-    },
-    (error) => {
-      this.setState({loading: false})
-    })
+      })
+    }
+    else {
+      alert('Fields cannot be blank')
+    }
   }
 
   autoLogin = () => {
@@ -106,11 +112,12 @@ class HomePage extends React.Component {
   }
 
   handleOpenModal = () => {
-    this.setState({ showModal: true });
+    this.setState({ showModal: true })
   }
 
   handleCloseModal = () => {
-    this.setState({ showModal: false });
+    this.setState({ modalTitle: '' })
+    this.setState({ showModal: false })
   }
 
   componentDidMount() {
@@ -126,7 +133,7 @@ class HomePage extends React.Component {
 
     if(loading) {
       return (
-        <div className='flexContainer primaryColor'>
+        <div className='flexContainer primaryColor fullHeight'>
           <div className='loader'>
             <Loader
               type='Bars'
@@ -143,75 +150,79 @@ class HomePage extends React.Component {
     }
     else {
       return (
-        <div className='flexContainer centerFlex primaryColor topOffset'>
-          <button className='addCounterBtn' onClick={this.handleOpenModal}>Add New Counter</button>
+        <div className='primaryColor fullHeight'>
+          <div className='flexContainer centerFlex primaryColor topOffset'>
+            <button className='addCounterBtn clickable' onClick={this.handleOpenModal}>Add New Counter</button>
 
-          <Modal isOpen={this.state.showModal} contentLabel='Minimal Modal Example' className='Modal' overlayClassName='Overlay' onRequestClose={this.handleCloseModal} shouldCloseOnOverlayClick={true}>
-            <input className='modalTitleInput' type='text' placeholder='Event Name' onChange={this.handleTitleChange}></input>
-            <input className='modalDateInput' type='date' placeholder='Date' onChange={this.handleDateChange}></input>
+            <Modal isOpen={this.state.showModal} contentLabel='Minimal Modal Example' className='Modal' overlayClassName='Overlay' onRequestClose={this.handleCloseModal} shouldCloseOnOverlayClick={true}>
+              <input className='modalTitleInput' type='text' placeholder='Event Name' onChange={this.handleTitleChange}></input>
+              <input className='modalDateInput' type='datetime-local' placeholder='Date' onChange={this.handleDateChange}></input>
 
-            <button onClick={this.createTimer} className='createCounterBtn'>Create Timer</button>
-          </Modal>
+              <button onClick={this.createTimer} className='createCounterBtn clickable'>Create Timer</button>
+              <button onClick={this.handleCloseModal} className='closeModalBtn clickable'>close</button>
+            </Modal>
 
-          {this.state.timers.map(timer => {
-            const curDate = new Date()
-            const timerDate = new Date(timer.timerDate)
-            const timerTitle = timer.timerTitle
+            {this.state.timers.map(timer => {
+              const curDate = new Date()
+              const timerDate = new Date(timer.timerDate)
+              const timerTitle = timer.timerTitle
 
-            let delta = Math.abs(curDate - timerDate) / 1000
-            const dDays = Math.floor(delta / 86400)
-            delta -= dDays * 86400
-            const dHours = Math.floor(delta / 3600) % 24
-            delta -= dHours * 3600
-            const dMinutes = Math.floor(delta / 60) % 60
-            delta -= dMinutes * 60
-            const dSeconds = Math.round(delta % 60)
+              let delta = Math.abs(curDate - timerDate) / 1000
+              const dDays = Math.floor(delta / 86400)
+              delta -= dDays * 86400
+              const dHours = Math.floor(delta / 3600) % 24
+              delta -= dHours * 3600
+              const dMinutes = Math.floor(delta / 60) % 60
+              delta -= dMinutes * 60
+              const dSeconds = Math.round(delta % 60)
 
-            if(curDate >= timerDate && dDays < 1) {
-              return (
-                <div className='timerBox'>
-                  <h2>{timerTitle}</h2>
-                  <h1 className='doneTimerText'>TODAY</h1>
-                </div>
-              )
-            }
-            else if(curDate >= timerDate) {
-              return (
-                <div className='timerBox'>
-                  <h2>{timerTitle}</h2>
-                  <h1 className='doneTimerText'>PASSED</h1>
-                </div>
-              )
-            }
-            else {
-              return (
-                <div className='timerBox'>
-                  <h2>{timerTitle}</h2>
-                  <h1>{dDays}</h1>
-                  <p>days</p>
-                  <div className='timerBoxCountdowns'>
-                    <div className='countdown'>
-                      <h1>{dHours}</h1>
-                      <p>hours</p>
-                    </div>
+              if(curDate >= timerDate && dDays < 1) {
+                return (
+                  <div className='timerBox'>
+                    <h2>{timerTitle}</h2>
+                    <h1 className='doneTimerText'>TODAY</h1>
+                  </div>
+                )
+              }
+              else if(curDate >= timerDate) {
+                return (
+                  <div className='timerBox'>
+                    <h2>{timerTitle}</h2>
+                    <h1 className='doneTimerText'>PASSED</h1>
+                  </div>
+                )
+              }
+              else {
+                return (
+                  <div className='timerBox'>
+                    <h2>{timerTitle}</h2>
+                    <h1>{dDays}</h1>
+                    <p>days</p>
+                    <div className='timerBoxCountdowns'>
+                      <div className='countdown'>
+                        <h1>{dHours}</h1>
+                        <p>hours</p>
+                      </div>
 
-                    <div className='countdown'>
-                      <h1>{dMinutes}</h1>
-                      <p>minutes</p>
-                    </div>
+                      <div className='countdown'>
+                        <h1>{dMinutes}</h1>
+                        <p>minutes</p>
+                      </div>
 
-                    <div className='countdown'>
-                      <h1>{dSeconds}</h1>
-                      <p>seconds</p>
+                      <div className='countdown'>
+                        <h1>{dSeconds}</h1>
+                        <p>seconds</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )
-            }
+                )
+              }
 
-          })}
+            })}
 
+          </div>
         </div>
+
       )
     }
   }

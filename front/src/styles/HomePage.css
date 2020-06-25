@@ -56,15 +56,23 @@
 }
 
 .Modal > input {
-  font-size: 2rem;
+  font-size: 1rem;
   border-radius: 15px;
   padding: 1rem;
-  width: 18rem;
+  width: 16rem;
   border-color: rgba(50, 50, 50, 1.0);
 }
 
 .Modal > button {
   width: 18rem;
+}
+
+.closeModalBtn {
+  font-size: 1rem;
+  border: none;
+  background: white;
+  outline: none;
+  color: black;
 }
 
 .Overlay {
