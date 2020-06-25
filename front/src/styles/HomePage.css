@@ -106,10 +106,11 @@
 
 .timerBox {
   width: 15rem;
-  height: 15rem;
+  height: auto;
   border: solid black;
   background-color: white;
   border-radius: 10px;
+  padding-bottom: 1rem;
 }
 
 .signOutBtn {
